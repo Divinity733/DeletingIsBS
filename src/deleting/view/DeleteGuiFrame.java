@@ -19,7 +19,6 @@ public class DeleteGuiFrame extends JFrame
 	{
 		this.setContentPane(basePanel);
 		this.setSize(1000, 1000);
-		this.setResizable(false);
-		setVisible(true);
+		this.setVisible(true);
 	}
 }

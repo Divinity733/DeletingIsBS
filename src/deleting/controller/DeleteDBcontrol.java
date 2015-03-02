@@ -22,4 +22,9 @@ public class DeleteDBcontrol
 	{
 		return appFrame;
 	}
+	
+	public DataBaseControl getDatabase()
+	{
+		return database;
+	}
 }

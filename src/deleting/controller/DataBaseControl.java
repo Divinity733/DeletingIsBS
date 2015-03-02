@@ -6,7 +6,6 @@ import javax.swing.JOptionPane;
 
 import deleting.controller.DeleteDBcontrol;
 
-
 public class DataBaseControl
 {
 	private String connectionString;
@@ -15,7 +14,7 @@ public class DataBaseControl
 	
 	public DataBaseControl(DeleteDBcontrol baseController)
 	{
-		connectionString = "jdbc:mysql:/localhost/database_name?user=root";
+		connectionString = "jdbc:mysql://localhost/games?user=root";
 		this.baseController = baseController;
 		checkDriver();
 		setupConnection();
@@ -27,7 +26,7 @@ public class DataBaseControl
 		{
 			Class.forName("com.mysql.jdbc.Driver");
 		}
-		catch(Exception currentException)
+		catch (Exception currentException)
 		{
 			displayErrors(currentException);
 			System.exit(1);
@@ -40,7 +39,7 @@ public class DataBaseControl
 		{
 			dadaConnect.close();
 		}
-		catch(SQLException error)
+		catch (SQLException error)
 		{
 			displayErrors(error);
 		}
@@ -52,7 +51,7 @@ public class DataBaseControl
 		{
 			dadaConnect = DriverManager.getConnection(connectionString);
 		}
-		catch(SQLException currentException)
+		catch (SQLException currentException)
 		{
 			displayErrors(currentException);
 		}
@@ -62,10 +61,58 @@ public class DataBaseControl
 	{
 		JOptionPane.showMessageDialog(baseController.getAppFrame(), currentException.getMessage());
 		
-		if(currentException instanceof SQLException)
+		if (currentException instanceof SQLException)
 		{
 			JOptionPane.showMessageDialog(baseController.getAppFrame(), "SQL State: " + ((SQLException) currentException).getSQLState());
 			JOptionPane.showMessageDialog(baseController.getAppFrame(), "SQL Error Code: " + ((SQLException) currentException).getErrorCode());
 		}
+	}
+	
+	public String displayTables()
+	{
+		String results = "";
+		String query = "SHOW DATABASES";
+		
+		try
+		{
+			Statement firstStatement = dadaConnect.createStatement();
+			ResultSet answer = firstStatement.executeQuery(query);
+			while (answer.next())
+			{
+				results += answer.getString(1) + "\n";
+			}
+			answer.close();
+			firstStatement.close();
+		}
+		catch (SQLException currentSQLError)
+		{
+			displayErrors(currentSQLError);
+		}
+		
+		return results;
+	}
+	
+	public String describeTable()
+	{
+		String results = "";
+		String query = "DESCRIBE `game_categories`";
+		
+		try
+		{
+			Statement firstStatement = dadaConnect.createStatement();
+			ResultSet answer = firstStatement.executeQuery(query);
+			while (answer.next())
+			{
+				results += answer.getString(1) + "\t" + answer.getString(2) + "\t" + answer.getString(3) + "\n";
+			}
+			answer.close();
+			firstStatement.close();
+		}
+		catch (SQLException currentSQLError)
+		{
+			displayErrors(currentSQLError);
+		}
+		
+		return results;
 	}
 }
