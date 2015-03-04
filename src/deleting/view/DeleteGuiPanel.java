@@ -18,10 +18,13 @@ public class DeleteGuiPanel extends JPanel
 	private DeleteDBcontrol baseController;
 	private SpringLayout appLayout;
 	private JTextArea displayArea;
+	private JTextArea textArea;
 	private JButton dadaButton;
 	private JButton tableButton;
+	private JButton insertButton;
 	private JButton clearButton;
 	private JScrollPane displayPane;
+	private JScrollPane textPane;
 	private SpringLayout baseLayout;
 	
 	public DeleteGuiPanel(DeleteDBcontrol baseController)
@@ -29,12 +32,13 @@ public class DeleteGuiPanel extends JPanel
 		this.baseController = baseController;
 		dadaButton = new JButton("Test the query");
 		tableButton = new JButton("See Table");
+		insertButton = new JButton("Insert into table");
 		clearButton = new JButton("Clear!");
 		displayArea = new JTextArea(10, 30);
+		textArea = new JTextArea(5, 20);
 		displayPane = new JScrollPane(displayArea);
+		textPane = new JScrollPane(textArea);
 		baseLayout = new SpringLayout();
-		baseLayout.putConstraint(SpringLayout.WEST, clearButton, 0, SpringLayout.WEST, displayPane);
-		baseLayout.putConstraint(SpringLayout.SOUTH, clearButton, 1, SpringLayout.SOUTH, this);
 		
 		setupPane();
 		setupPanel();
@@ -55,8 +59,10 @@ public class DeleteGuiPanel extends JPanel
 		this.setLayout(baseLayout);
 		this.add(dadaButton);
 		this.add(tableButton);
+		this.add(insertButton);
 		this.add(clearButton);
 		this.add(displayPane);
+		this.add(textPane);
 	}
 	
 	private void setupLayout()
@@ -65,6 +71,11 @@ public class DeleteGuiPanel extends JPanel
 		baseLayout.putConstraint(SpringLayout.EAST, dadaButton, 1, SpringLayout.EAST, this);
 		baseLayout.putConstraint(SpringLayout.SOUTH, tableButton, 1, SpringLayout.SOUTH, this);
 		baseLayout.putConstraint(SpringLayout.EAST, tableButton, 0, SpringLayout.WEST, dadaButton);
+		baseLayout.putConstraint(SpringLayout.SOUTH, insertButton, -6, SpringLayout.NORTH, dadaButton);
+		baseLayout.putConstraint(SpringLayout.EAST, insertButton, 1, SpringLayout.EAST, this);
+		baseLayout.putConstraint(SpringLayout.WEST, clearButton, 0, SpringLayout.WEST, displayPane);
+		baseLayout.putConstraint(SpringLayout.SOUTH, clearButton, 1, SpringLayout.SOUTH, this);
+		baseLayout.putConstraint(SpringLayout.EAST, textPane, 1, SpringLayout.EAST, this);
 	}
 	
 	private void heyListen()
@@ -84,6 +95,15 @@ public class DeleteGuiPanel extends JPanel
 			{
 				String databaseAnswer = baseController.getDatabase().describeTable();
 				displayArea.setText(databaseAnswer);
+			}
+		});
+		
+		insertButton.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent click)
+			{
+				int insert = baseController.getDatabase().insertData();
+				displayArea.setText(displayArea.getText() + "\nRows Affected: " + insert);
 			}
 		});
 		

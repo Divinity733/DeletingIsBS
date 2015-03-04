@@ -14,12 +14,17 @@ public class DataBaseControl
 	
 	public DataBaseControl(DeleteDBcontrol baseController)
 	{
-		connectionString = "jdbc:mysql://localhost/games?user=root";
+		connectionString = "jdbc:mysql://localhost/?user=root";
 		this.baseController = baseController;
 		checkDriver();
 		setupConnection();
 	}
 	
+	/**
+	 * Checks if you have the correct driver to access database
+	 * 
+	 * @param checkDriver()
+	 */
 	private void checkDriver()
 	{
 		try
@@ -45,6 +50,12 @@ public class DataBaseControl
 		}
 	}
 	
+	/**
+	 * Connects to the database
+	 * 
+	 * @param setupConnection()
+	 * @return dadaConnect
+	 */
 	private void setupConnection()
 	{
 		try
@@ -68,6 +79,12 @@ public class DataBaseControl
 		}
 	}
 	
+	/**
+	 * Lists all available databases
+	 * 
+	 * @param displayTables()
+	 * @return results
+	 */
 	public String displayTables()
 	{
 		String results = "";
@@ -92,6 +109,12 @@ public class DataBaseControl
 		return results;
 	}
 	
+	/**
+	 * Gives entries in said table
+	 * 
+	 * @param describeTable()
+	 * @return results
+	 */
 	public String describeTable()
 	{
 		String results = "";
@@ -114,5 +137,26 @@ public class DataBaseControl
 		}
 		
 		return results;
+	}
+	
+	public int insertData()
+	{
+		int rowsAffected = 0;
+		String insertQuery = "INSERT INTO `games`.`my_games` "
+				+ "(`number_of_players`,`name_of_game`,`platform`) " //Columns
+				+ "VALUES (1, 'Kingdom Hearts 3D', 1);";
+		
+		try
+		{
+			Statement insertStatement = dadaConnect.createStatement();
+			rowsAffected = insertStatement.executeUpdate(insertQuery);
+			insertStatement.close();
+		}
+		catch (SQLException currentSQLError)
+		{
+			displayErrors(currentSQLError);
+		}
+		
+		return rowsAffected;
 	}
 }
