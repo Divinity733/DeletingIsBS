@@ -109,6 +109,68 @@ public class DataBaseControl
 		return results;
 	}
 	
+	public String [][] tableInfo()
+	{
+		String [][] results;
+		String query = "SHOW DATABASES";
+		
+		try
+		{
+			Statement firstStatement = dadaConnect.createStatement();
+			ResultSet answer = firstStatement.executeQuery(query);
+			int rowCount;
+			answer.last();
+			rowCount = answer.getRow();
+			answer.beforeFirst();
+			results = new String [rowCount][1];
+			
+			while(answer.next())
+			{
+				results[answer.getRow()-1][0] = answer.getString(1);
+			}
+			
+			answer.close();
+			firstStatement.close();
+		}
+		catch (SQLException currentSQLError)
+		{
+			results = new String [][]{{"problem occurred :("}};
+			displayErrors(currentSQLError);
+		}
+		
+		
+		return results;
+	}
+	
+	public String [] getMetaData()
+	{
+		String [] columnInfo;
+		String query = "SHOW DATABASES";
+		
+		try
+		{
+			Statement firstStatement = dadaConnect.createStatement();
+			ResultSet answer = firstStatement.executeQuery(query);
+			ResultSetMetaData myMeta = answer.getMetaData();
+			
+			columnInfo = new String [myMeta.getColumnCount()];
+			for(int spot = 0; spot < myMeta.getColumnCount(); spot++)
+			{
+				columnInfo[spot] = myMeta.getColumnName(spot + 1);
+			}
+			
+			answer.close();
+			firstStatement.close();
+		}
+		catch (SQLException currentSQLError)
+		{
+			columnInfo = new String [] {"no existance"};
+			displayErrors(currentSQLError);
+		}
+		
+		return columnInfo;
+	}
+	
 	/**
 	 * Gives entries in said table
 	 * 
@@ -139,6 +201,12 @@ public class DataBaseControl
 		return results;
 	}
 	
+	/**
+	 * Inserts data in said table
+	 * 
+	 * @param insertData()
+	 * @return rowsAffected
+	 */
 	public int insertData()
 	{
 		int rowsAffected = 0;
