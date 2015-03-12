@@ -20,11 +20,13 @@ public class DeleteGuiPanel extends JPanel
 	private DeleteDBcontrol baseController;
 	private SpringLayout appLayout;
 	private JTextArea displayArea;
+	private JTextArea textArea;
 	private JButton dadaButton;
 	private JButton tableButton;
 	private JButton insertButton;
 	private JButton clearButton;
 	private JScrollPane displayPane;
+	private JScrollPane textPane;
 	private SpringLayout baseLayout;
 	private JTable tableData;
 	
@@ -36,7 +38,9 @@ public class DeleteGuiPanel extends JPanel
 		insertButton = new JButton("Insert into table");
 		clearButton = new JButton("Clear!");
 		displayArea = new JTextArea(10, 30);
+		textArea = new JTextArea(5, 20);
 		displayPane = new JScrollPane(displayArea);
+		textPane = new JScrollPane(textArea);
 		baseLayout = new SpringLayout();
 		
 		setupTable();
@@ -69,6 +73,7 @@ public class DeleteGuiPanel extends JPanel
 		this.add(insertButton);
 		this.add(clearButton);
 		this.add(displayPane);
+		this.add(textPane);
 	}
 	
 	private void setupLayout()
@@ -81,6 +86,7 @@ public class DeleteGuiPanel extends JPanel
 		baseLayout.putConstraint(SpringLayout.EAST, insertButton, 1, SpringLayout.EAST, this);
 		baseLayout.putConstraint(SpringLayout.WEST, clearButton, 0, SpringLayout.WEST, displayPane);
 		baseLayout.putConstraint(SpringLayout.SOUTH, clearButton, 1, SpringLayout.SOUTH, this);
+		baseLayout.putConstraint(SpringLayout.EAST, textPane, 1, SpringLayout.EAST, this);
 	}
 	
 	private void heyListen()
