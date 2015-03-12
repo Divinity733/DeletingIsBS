@@ -48,7 +48,7 @@ public class DeleteGuiPanel extends JPanel
 	
 	private void setupTable()
 	{
-		tableData = new JTable(new DefaultTableModel(baseController.getDatabase().tableInfo(), baseController.getDatabase().getMetaData()));
+		tableData = new JTable(new DefaultTableModel(baseController.getDatabase().realInfo(), baseController.getDatabase().getMetaData()));
 		
 		displayPane = new JScrollPane(tableData);
 	}

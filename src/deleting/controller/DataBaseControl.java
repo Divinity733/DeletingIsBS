@@ -23,7 +23,8 @@ public class DataBaseControl
 	/**
 	 * Checks if you have the correct driver to access database
 	 * 
-	 * @param checkDriver()
+	 * @param checkDriver
+	 *            ()
 	 */
 	private void checkDriver()
 	{
@@ -53,7 +54,8 @@ public class DataBaseControl
 	/**
 	 * Connects to the database
 	 * 
-	 * @param setupConnection()
+	 * @param setupConnection
+	 *            ()
 	 * @return dadaConnect
 	 */
 	private void setupConnection()
@@ -82,7 +84,8 @@ public class DataBaseControl
 	/**
 	 * Lists all available databases
 	 * 
-	 * @param displayTables()
+	 * @param displayTables
+	 *            ()
 	 * @return results
 	 */
 	public String displayTables()
@@ -109,9 +112,59 @@ public class DataBaseControl
 		return results;
 	}
 	
-	public String [][] tableInfo()
+	/**
+	 * Lists all available databases
+	 * 
+	 * @param realInfo
+	 *            ()
+	 * @return results
+	 */
+	public String[][] realInfo()
 	{
-		String [][] results;
+		String[][] results;
+		String query = "SELECT * FROM `game_categories`";
+		
+		try
+		{
+			Statement firstStatement = dadaConnect.createStatement();
+			ResultSet answer = firstStatement.executeQuery(query);
+			int columnCount = answer.getMetaData().getColumnCount();
+			int rowCount;
+			answer.last();
+			rowCount = answer.getRow();
+			answer.beforeFirst();
+			results = new String[rowCount][columnCount];
+			
+			while (answer.next())
+			{
+				for (int col = 0; col < columnCount; col++)
+				{
+					results[answer.getRow() - 1][col] = answer.getString(col + 1);
+				}
+			}
+			
+			answer.close();
+			firstStatement.close();
+		}
+		catch (SQLException currentSQLError)
+		{
+			results = new String[][] { { "problem occurred :(" } };
+			displayErrors(currentSQLError);
+		}
+		
+		return results;
+	}
+	
+	/**
+	 * Lists all available databases
+	 * 
+	 * @param tableInfo
+	 *            ()
+	 * @return results
+	 */
+	public String[][] tableInfo()
+	{
+		String[][] results;
 		String query = "SHOW DATABASES";
 		
 		try
@@ -122,11 +175,11 @@ public class DataBaseControl
 			answer.last();
 			rowCount = answer.getRow();
 			answer.beforeFirst();
-			results = new String [rowCount][1];
+			results = new String[rowCount][1];
 			
-			while(answer.next())
+			while (answer.next())
 			{
-				results[answer.getRow()-1][0] = answer.getString(1);
+				results[answer.getRow() - 1][0] = answer.getString(1);
 			}
 			
 			answer.close();
@@ -134,17 +187,23 @@ public class DataBaseControl
 		}
 		catch (SQLException currentSQLError)
 		{
-			results = new String [][]{{"problem occurred :("}};
+			results = new String[][] { { "problem occurred :(" } };
 			displayErrors(currentSQLError);
 		}
-		
 		
 		return results;
 	}
 	
-	public String [] getMetaData()
+	/**
+	 * Lists all available databases
+	 * 
+	 * @param getMetaData
+	 *            ()
+	 * @return columnInfo
+	 */
+	public String[] getMetaData()
 	{
-		String [] columnInfo;
+		String[] columnInfo;
 		String query = "SHOW DATABASES";
 		
 		try
@@ -153,8 +212,8 @@ public class DataBaseControl
 			ResultSet answer = firstStatement.executeQuery(query);
 			ResultSetMetaData myMeta = answer.getMetaData();
 			
-			columnInfo = new String [myMeta.getColumnCount()];
-			for(int spot = 0; spot < myMeta.getColumnCount(); spot++)
+			columnInfo = new String[myMeta.getColumnCount()];
+			for (int spot = 0; spot < myMeta.getColumnCount(); spot++)
 			{
 				columnInfo[spot] = myMeta.getColumnName(spot + 1);
 			}
@@ -164,7 +223,7 @@ public class DataBaseControl
 		}
 		catch (SQLException currentSQLError)
 		{
-			columnInfo = new String [] {"no existance"};
+			columnInfo = new String[] { "no existance" };
 			displayErrors(currentSQLError);
 		}
 		
@@ -174,7 +233,8 @@ public class DataBaseControl
 	/**
 	 * Gives entries in said table
 	 * 
-	 * @param describeTable()
+	 * @param describeTable
+	 *            ()
 	 * @return results
 	 */
 	public String describeTable()
@@ -204,14 +264,14 @@ public class DataBaseControl
 	/**
 	 * Inserts data in said table
 	 * 
-	 * @param insertData()
+	 * @param insertData
+	 *            ()
 	 * @return rowsAffected
 	 */
 	public int insertData()
 	{
 		int rowsAffected = 0;
-		String insertQuery = "INSERT INTO `games`.`my_games` "
-				+ "(`number_of_players`,`name_of_game`,`platform`) " //Columns
+		String insertQuery = "INSERT INTO `games`.`my_games` " + "(`number_of_players`,`name_of_game`,`platform`) " // Columns
 				+ "VALUES (1, 'Kingdom Hearts 3D', 1);";
 		
 		try
