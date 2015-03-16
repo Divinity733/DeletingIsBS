@@ -11,10 +11,11 @@ public class DataBaseControl
 	private String connectionString;
 	private Connection dadaConnect;
 	private DeleteDBcontrol baseController;
+	private String currentQuery;
 	
 	public DataBaseControl(DeleteDBcontrol baseController)
 	{
-		connectionString = "jdbc:mysql://localhost/?user=root";
+		connectionString = "jdbc:mysql://localhost/games?user=root";
 		this.baseController = baseController;
 		checkDriver();
 		setupConnection();
@@ -151,6 +152,65 @@ public class DataBaseControl
 			results = new String[][] { { "problem occurred :(" } };
 			displayErrors(currentSQLError);
 		}
+		
+		return results;
+	}
+	
+	private boolean checkDataViolation()
+	{
+		if(currentQuery.toUpperCase().contains(" DROP ")
+				|| currentQuery.toUpperCase().contains(" TRUNCATE ")
+				|| currentQuery.toUpperCase().contains(" SET ")
+				|| currentQuery.toUpperCase().contains(" ALTER "))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+	public String [][] selectQueryResults(String query)
+	{
+		this.currentQuery = query;
+		String [][] results;
+		
+		try
+		{
+			if(checkDataViolation())
+			{
+				throw new SQLException("illegal modification of data!",
+						":(  you messed up Old Sport. :(",
+						Integer.MIN_VALUE);
+			}
+			
+			Statement firstStatement = dadaConnect.createStatement();
+			ResultSet answer = firstStatement.executeQuery(query);
+			int columnCount = answer.getMetaData().getColumnCount();
+			int rowCount;
+			answer.last();
+			rowCount = answer.getRow();
+			answer.beforeFirst();
+			results = new String[rowCount][columnCount];
+			
+			while (answer.next())
+			{
+				for (int col = 0; col < columnCount; col++)
+				{
+					results[answer.getRow() - 1][col] = answer.getString(col + 1);
+				}
+			}
+			
+			answer.close();
+			firstStatement.close();
+		}
+		catch (SQLException currentSQLError)
+		{
+			results = new String[][] { { "problem occurred :(" } };
+			displayErrors(currentSQLError);
+		}
+		
 		
 		return results;
 	}
