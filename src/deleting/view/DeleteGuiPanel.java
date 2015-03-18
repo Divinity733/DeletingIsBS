@@ -102,39 +102,39 @@ public class DeleteGuiPanel extends JPanel
 	
 	private void heyListen()
 	{
-		dadaButton.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent click)
-			{
-				String databaseAnswer = baseController.getDatabase().displayTables();
-				displayArea.setText(databaseAnswer);
-			}
-		});
-		
-		tableButton.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent click)
-			{
-				String databaseAnswer = baseController.getDatabase().describeTable();
-				displayArea.setText(databaseAnswer);
-			}
-		});
-		
-		insertButton.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent click)
-			{
-				int insert = baseController.getDatabase().insertData();
-				displayArea.setText(displayArea.getText() + "\nRows Affected: " + insert);
-			}
-		});
-		
-		clearButton.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent click)
-			{
-				displayArea.setText("");
-			}
-		});
+//		dadaButton.addActionListener(new ActionListener()
+//		{
+//			public void actionPerformed(ActionEvent click)
+//			{
+//				String databaseAnswer = baseController.getDatabase().displayTables();
+//				displayArea.setText(databaseAnswer);
+//			}
+//		});
+//		
+//		tableButton.addActionListener(new ActionListener()
+//		{
+//			public void actionPerformed(ActionEvent click)
+//			{
+//				String databaseAnswer = baseController.getDatabase().describeTable();
+//				displayArea.setText(databaseAnswer);
+//			}
+//		});
+//		
+//		insertButton.addActionListener(new ActionListener()
+//		{
+//			public void actionPerformed(ActionEvent click)
+//			{
+//				int insert = baseController.getDatabase().insertData();
+//				displayArea.setText(displayArea.getText() + "\nRows Affected: " + insert);
+//			}
+//		});
+//		
+//		clearButton.addActionListener(new ActionListener()
+//		{
+//			public void actionPerformed(ActionEvent click)
+//			{
+//				displayArea.setText("");
+//			}
+//		});
 	}
 }

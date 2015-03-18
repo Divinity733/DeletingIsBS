@@ -15,10 +15,28 @@ public class DataBaseControl
 	
 	public DataBaseControl(DeleteDBcontrol baseController)
 	{
-		connectionString = "jdbc:mysql://localhost/games?user=root";
+		String pathToDBServer = "localhost";
+		String databaseName = "games";
+		String userName = "root";
+		String password = "";
+		
+//		connectionString = "jdbc:mysql://localhost/games?user=root";
 		this.baseController = baseController;
 		checkDriver();
+		connectionStringBuilder(pathToDBServer, databaseName, userName, password);
 		setupConnection();
+	}
+	
+	public void connectionStringBuilder(String pathToDBServer, String databaseName, String userName, String password)
+	{
+		connectionString = "jdbc:mysql://";
+		connectionString += pathToDBServer;
+		connectionString += "/"
+				+ databaseName;
+		connectionString += "?user="
+				+ userName;
+		connectionString += "&password="
+				+ password;
 	}
 	
 	/**
