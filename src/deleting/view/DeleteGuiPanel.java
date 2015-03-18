@@ -33,6 +33,10 @@ public class DeleteGuiPanel extends JPanel
 	private JTable tableData;
 	private JPasswordField password;
 	
+	/**
+	 * Defines objects
+	 * @param baseController
+	 */
 	public DeleteGuiPanel(DeleteDBcontrol baseController)
 	{
 		this.baseController = baseController;
@@ -54,6 +58,9 @@ public class DeleteGuiPanel extends JPanel
 		heyListen();
 	}
 	
+	/**
+	 * Grabs and creates table
+	 */
 	private void setupTable()
 	{
 		tableData = new JTable(new DefaultTableModel(baseController.getDatabase().realInfo(), baseController.getDatabase().getMetaData()));
@@ -61,6 +68,9 @@ public class DeleteGuiPanel extends JPanel
 		displayPane = new JScrollPane(tableData);
 	}
 	
+	/**
+	 * Places restrictions on displayArea
+	 */
 	private void setupPane()
 	{
 		displayArea.setWrapStyleWord(true);
@@ -68,6 +78,9 @@ public class DeleteGuiPanel extends JPanel
 		displayArea.setEditable(false);
 	}
 	
+	/**
+	 * Adds objects to the window
+	 */
 	private void setupPanel()
 	{
 		this.setBackground(Color.GRAY);
@@ -84,6 +97,10 @@ public class DeleteGuiPanel extends JPanel
 		password.setFont(new Font("Serif", Font.BOLD, 30));
 	}
 	
+	
+	/**
+	 * Creates the layout of the window
+	 */
 	private void setupLayout()
 	{
 		baseLayout.putConstraint(SpringLayout.SOUTH, dadaButton, 1, SpringLayout.SOUTH, this);
@@ -100,6 +117,10 @@ public class DeleteGuiPanel extends JPanel
 		baseLayout.putConstraint(SpringLayout.WEST, textPane, 25, SpringLayout.WEST, this);
 	}
 	
+	
+	/**
+	 * Defines how the buttons are suppose to operate
+	 */
 	private void heyListen()
 	{
 //		dadaButton.addActionListener(new ActionListener()

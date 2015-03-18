@@ -13,6 +13,11 @@ public class DataBaseControl
 	private DeleteDBcontrol baseController;
 	private String currentQuery;
 	
+	
+	/**
+	 * Defines objects
+	 * @param baseController
+	 */
 	public DataBaseControl(DeleteDBcontrol baseController)
 	{
 		String pathToDBServer = "localhost";
@@ -20,13 +25,21 @@ public class DataBaseControl
 		String userName = "root";
 		String password = "";
 		
-//		connectionString = "jdbc:mysql://localhost/games?user=root";
 		this.baseController = baseController;
 		checkDriver();
 		connectionStringBuilder(pathToDBServer, databaseName, userName, password);
 		setupConnection();
 	}
 	
+	
+	/**
+	 * connectionStringBuilder() makes the whole URL instead 
+	 *            of one line of code and it makes getting DBs more accessible.
+	 * @param pathToDBServer
+	 * @param databaseName
+	 * @param userName
+	 * @param password
+	 */
 	public void connectionStringBuilder(String pathToDBServer, String databaseName, String userName, String password)
 	{
 		connectionString = "jdbc:mysql://";
@@ -58,6 +71,12 @@ public class DataBaseControl
 		}
 	}
 	
+	/**
+	 * Closes the connection to DB
+	 * 
+	 * @param closeConnection
+	 *            ()
+	 */
 	private void closeConnection()
 	{
 		try
@@ -89,6 +108,11 @@ public class DataBaseControl
 		}
 	}
 	
+	
+	/**
+	 * Displays the errors if an error is found.
+	 * @param currentException
+	 */
 	public void displayErrors(Exception currentException)
 	{
 		JOptionPane.showMessageDialog(baseController.getAppFrame(), currentException.getMessage());
@@ -174,6 +198,11 @@ public class DataBaseControl
 		return results;
 	}
 	
+	
+	/**
+	 * Checks if statements are correct.
+	 * @return
+	 */
 	private boolean checkDataViolation()
 	{
 		if(currentQuery.toUpperCase().contains(" DROP ")
@@ -189,6 +218,11 @@ public class DataBaseControl
 		}
 	}
 	
+	/**
+	 * Helps find specific data in said DB
+	 * @param query
+	 * @return
+	 */
 	public String [][] selectQueryResults(String query)
 	{
 		this.currentQuery = query;
