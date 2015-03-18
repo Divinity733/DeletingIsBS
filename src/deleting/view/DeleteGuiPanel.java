@@ -120,6 +120,7 @@ public class DeleteGuiPanel extends JPanel
 	
 	/**
 	 * Defines how the buttons are suppose to operate
+	 * USELESS FOR NOW!
 	 */
 	private void heyListen()
 	{
