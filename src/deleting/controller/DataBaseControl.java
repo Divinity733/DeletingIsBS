@@ -201,7 +201,7 @@ public class DataBaseControl
 	
 	/**
 	 * Checks if statements are correct.
-	 * @return
+	 * @return true/false
 	 */
 	private boolean checkDataViolation()
 	{
@@ -221,7 +221,7 @@ public class DataBaseControl
 	/**
 	 * Helps find specific data in said DB
 	 * @param query
-	 * @return
+	 * @return results
 	 */
 	public String [][] selectQueryResults(String query)
 	{
