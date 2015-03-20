@@ -219,6 +219,110 @@ public class DataBaseControl
 	}
 	
 	/**
+	 * Checks if the structure is correct.
+	 * @return true/false
+	 */
+	private boolean checkStructureViolation()
+	{
+		if(currentQuery.toUpperCase().contains(" DATABASE ")
+				|| currentQuery.toUpperCase().contains(" TABLE "))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+	/**
+	 * 
+	 */
+	public void dropStatement()
+	{
+		String results;
+		try
+		{
+			if(checkStructureViolation())
+			{
+				throw new SQLException("no dropping dbs!",
+						":(  you messed up Old Sport. :(",
+						Integer.MIN_VALUE);
+			}
+			
+			if(currentQuery.toUpperCase().contains(" INDEX "))
+			{
+				results = "The index was ";
+			}
+			else
+			{
+				results = "The table was ";
+			}
+			
+			Statement dropStatement = dadaConnect.createStatement();
+			int affected = dropStatement.executeUpdate(currentQuery);
+			
+			dropStatement.close();
+			
+			if(affected == 0)
+			{
+				results += "dropped";
+			}
+			JOptionPane.showMessageDialog(baseController.getAppFrame(), results);
+		}
+		catch (SQLException dropError)
+		{
+			displayErrors(dropError);
+		}
+	}
+	
+	public void alterStatement()
+	{
+		String results;
+		try
+		{
+			if(checkStructureViolation())
+			{
+				throw new SQLException("no dropping dbs!",
+						":(  you messed up Old Sport. :(",
+						Integer.MIN_VALUE);
+			}
+			
+			if(currentQuery.toUpperCase().contains(" ADD "))
+			{
+				results = "The added amount of columns was ";
+			}
+			else if(currentQuery.toUpperCase().contains(" DROP COLUMN "))
+			{
+				results = "Dropped column";
+			}
+			else if(currentQuery.toUpperCase().contains(" DROP INDEX "))
+			{
+				results = "Dropped index";
+			}
+			else
+			{
+				results = "dropped";
+			}
+			
+			Statement alterStatement = dadaConnect.createStatement();
+			int affected = alterStatement.executeUpdate(currentQuery);
+			
+			alterStatement.close();
+			
+			if(affected != 0)
+			{
+				results += "dropped";
+			}
+			JOptionPane.showMessageDialog(baseController.getAppFrame(), results);
+		}
+		catch (SQLException dropError)
+		{
+			displayErrors(dropError);
+		}
+	}
+	
+	/**
 	 * Helps find specific data in said DB
 	 * @param query
 	 * @return results
