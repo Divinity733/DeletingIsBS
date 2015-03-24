@@ -16,6 +16,7 @@ public class DataBaseControl
 	
 	/**
 	 * Defines objects
+	 * 
 	 * @param baseController
 	 */
 	public DataBaseControl(DeleteDBcontrol baseController)
@@ -76,6 +77,7 @@ public class DataBaseControl
 	 * 
 	 * @param closeConnection
 	 *            ()
+	 * NOT SURE WHEN TO USE YET!!!
 	 */
 	private void closeConnection()
 	{
@@ -111,6 +113,7 @@ public class DataBaseControl
 	
 	/**
 	 * Displays the errors if an error is found.
+	 * 
 	 * @param currentException
 	 */
 	public void displayErrors(Exception currentException)
@@ -201,6 +204,7 @@ public class DataBaseControl
 	
 	/**
 	 * Checks if statements are correct.
+	 * 
 	 * @return true/false
 	 */
 	private boolean checkDataViolation()
@@ -220,6 +224,7 @@ public class DataBaseControl
 	
 	/**
 	 * Checks if the structure is correct.
+	 * 
 	 * @return true/false
 	 */
 	private boolean checkStructureViolation()
@@ -236,7 +241,10 @@ public class DataBaseControl
 	}
 	
 	/**
+	 * Allows the use of DROP Statements
 	 * 
+	 * @param dropStatement
+	 *            ()
 	 */
 	public void dropStatement()
 	{
@@ -276,6 +284,12 @@ public class DataBaseControl
 		}
 	}
 	
+	/**
+	 * Allows the use of ALTER Statements
+	 * 
+	 * @param alterStatement
+	 *            ()
+	 */
 	public void alterStatement()
 	{
 		String results;
@@ -324,7 +338,9 @@ public class DataBaseControl
 	
 	/**
 	 * Helps find specific data in said DB
-	 * @param query
+	 * 
+	 * @param selectQueryResults
+	 *            ()
 	 * @return results
 	 */
 	public String [][] selectQueryResults(String query)
