@@ -5,6 +5,7 @@ import java.sql.*;
 import javax.swing.JOptionPane;
 
 import deleting.controller.DeleteDBcontrol;
+import deleting.model.QueryInfo;
 
 public class DataBaseControl
 {
@@ -150,9 +151,10 @@ public class DataBaseControl
 		}
 		catch (SQLException currentSQLError)
 		{
+			endTime = System.currentTimeMillis();
 			displayErrors(currentSQLError);
 		}
-		
+		baseController.getTimingInfoList().add(new QueryInfo(query, endTime - startTime));
 		return results;
 	}
 	
