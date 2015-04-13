@@ -26,6 +26,7 @@ public class DeleteDBcontrol
 	
 	/**
 	 * Grabs the appFrame
+	 * 
 	 * @return appFrame
 	 */
 	public DeleteGuiFrame getAppFrame()
@@ -35,6 +36,7 @@ public class DeleteDBcontrol
 	
 	/**
 	 * Looks into the DataBaseControl.java file
+	 * 
 	 * @return database
 	 */
 	public DataBaseControl getDatabase()

@@ -13,7 +13,6 @@ public class DataBaseControl
 	private DeleteDBcontrol baseController;
 	private String currentQuery;
 	
-	
 	/**
 	 * Defines objects
 	 * 
@@ -32,25 +31,22 @@ public class DataBaseControl
 		setupConnection();
 	}
 	
-	
 	/**
-	 * connectionStringBuilder() makes the whole URL instead 
-	 *            of one line of code and it makes getting DBs more accessible.
+	 * connectionStringBuilder() makes the whole URL instead of one line of code and it makes getting DBs more accessible.
+	 * 
 	 * @param pathToDBServer
 	 * @param databaseName
 	 * @param userName
 	 * @param password
 	 */
-	public void connectionStringBuilder(String pathToDBServer, String databaseName, String userName, String password)
+	public void connectionStringBuilder(
+			String pathToDBServer, String databaseName, String userName, String password)
 	{
 		connectionString = "jdbc:mysql://";
 		connectionString += pathToDBServer;
-		connectionString += "/"
-				+ databaseName;
-		connectionString += "?user="
-				+ userName;
-		connectionString += "&password="
-				+ password;
+		connectionString += "/" + databaseName;
+		connectionString += "?user=" + userName;
+		connectionString += "&password=" + password;
 	}
 	
 	/**
@@ -76,8 +72,7 @@ public class DataBaseControl
 	 * Closes the connection to DB
 	 * 
 	 * @param closeConnection
-	 *            ()
-	 * NOT SURE WHEN TO USE YET!!!
+	 *            () NOT SURE WHEN TO USE YET!!!
 	 */
 	private void closeConnection()
 	{
@@ -110,13 +105,13 @@ public class DataBaseControl
 		}
 	}
 	
-	
 	/**
 	 * Displays the errors if an error is found.
 	 * 
 	 * @param currentException
 	 */
-	public void displayErrors(Exception currentException)
+	public void displayErrors(
+			Exception currentException)
 	{
 		JOptionPane.showMessageDialog(baseController.getAppFrame(), currentException.getMessage());
 		
@@ -201,7 +196,6 @@ public class DataBaseControl
 		return results;
 	}
 	
-	
 	/**
 	 * Checks if statements are correct.
 	 * 
@@ -209,10 +203,7 @@ public class DataBaseControl
 	 */
 	private boolean checkDataViolation()
 	{
-		if(currentQuery.toUpperCase().contains(" DROP ")
-				|| currentQuery.toUpperCase().contains(" TRUNCATE ")
-				|| currentQuery.toUpperCase().contains(" SET ")
-				|| currentQuery.toUpperCase().contains(" ALTER "))
+		if (currentQuery.toUpperCase().contains(" DROP ") || currentQuery.toUpperCase().contains(" TRUNCATE ") || currentQuery.toUpperCase().contains(" SET ") || currentQuery.toUpperCase().contains(" ALTER "))
 		{
 			return true;
 		}
@@ -229,8 +220,7 @@ public class DataBaseControl
 	 */
 	private boolean checkStructureViolation()
 	{
-		if(currentQuery.toUpperCase().contains(" DATABASE ")
-				|| currentQuery.toUpperCase().contains(" TABLE "))
+		if (currentQuery.toUpperCase().contains(" DATABASE ") || currentQuery.toUpperCase().contains(" TABLE "))
 		{
 			return true;
 		}
@@ -251,14 +241,12 @@ public class DataBaseControl
 		String results;
 		try
 		{
-			if(checkStructureViolation())
+			if (checkStructureViolation())
 			{
-				throw new SQLException("no dropping dbs!",
-						":(  you messed up Old Sport. :(",
-						Integer.MIN_VALUE);
+				throw new SQLException("no dropping dbs!", ":(  you messed up Old Sport. :(", Integer.MIN_VALUE);
 			}
 			
-			if(currentQuery.toUpperCase().contains(" INDEX "))
+			if (currentQuery.toUpperCase().contains(" INDEX "))
 			{
 				results = "The index was ";
 			}
@@ -272,7 +260,7 @@ public class DataBaseControl
 			
 			dropStatement.close();
 			
-			if(affected == 0)
+			if (affected == 0)
 			{
 				results += "dropped";
 			}
@@ -295,22 +283,20 @@ public class DataBaseControl
 		String results;
 		try
 		{
-			if(checkStructureViolation())
+			if (checkStructureViolation())
 			{
-				throw new SQLException("no dropping dbs!",
-						":(  you messed up Old Sport. :(",
-						Integer.MIN_VALUE);
+				throw new SQLException("no dropping dbs!", ":(  you messed up Old Sport. :(", Integer.MIN_VALUE);
 			}
 			
-			if(currentQuery.toUpperCase().contains(" ADD "))
+			if (currentQuery.toUpperCase().contains(" ADD "))
 			{
 				results = "The added amount of columns was ";
 			}
-			else if(currentQuery.toUpperCase().contains(" DROP COLUMN "))
+			else if (currentQuery.toUpperCase().contains(" DROP COLUMN "))
 			{
 				results = "Dropped column";
 			}
-			else if(currentQuery.toUpperCase().contains(" DROP INDEX "))
+			else if (currentQuery.toUpperCase().contains(" DROP INDEX "))
 			{
 				results = "Dropped index";
 			}
@@ -324,7 +310,7 @@ public class DataBaseControl
 			
 			alterStatement.close();
 			
-			if(affected != 0)
+			if (affected != 0)
 			{
 				results += "dropped";
 			}
@@ -343,18 +329,17 @@ public class DataBaseControl
 	 *            ()
 	 * @return results
 	 */
-	public String [][] selectQueryResults(String query)
+	public String[][] selectQueryResults(
+			String query)
 	{
 		this.currentQuery = query;
-		String [][] results;
+		String[][] results;
 		
 		try
 		{
-			if(checkDataViolation())
+			if (checkDataViolation())
 			{
-				throw new SQLException("illegal modification of data!",
-						":(  you messed up Old Sport. :(",
-						Integer.MIN_VALUE);
+				throw new SQLException("illegal modification of data!", ":(  you messed up Old Sport. :(", Integer.MIN_VALUE);
 			}
 			
 			Statement firstStatement = dadaConnect.createStatement();
@@ -382,7 +367,6 @@ public class DataBaseControl
 			results = new String[][] { { "problem occurred :(" } };
 			displayErrors(currentSQLError);
 		}
-		
 		
 		return results;
 	}

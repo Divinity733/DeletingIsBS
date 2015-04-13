@@ -32,9 +32,11 @@ public class DeleteGuiPanel extends JPanel
 	private SpringLayout baseLayout;
 	private JTable tableData;
 	private JPasswordField password;
+	private TableCellWrapRenderer cellRenderer;
 	
 	/**
 	 * Defines objects
+	 * 
 	 * @param baseController
 	 */
 	public DeleteGuiPanel(DeleteDBcontrol baseController)
@@ -50,6 +52,7 @@ public class DeleteGuiPanel extends JPanel
 		textPane = new JScrollPane(textArea);
 		baseLayout = new SpringLayout();
 		password = new JPasswordField(null, 20);
+		cellRenderer = new TableCellWrapRenderer();
 		
 		setupTable();
 		setupPane();
@@ -66,6 +69,11 @@ public class DeleteGuiPanel extends JPanel
 		tableData = new JTable(new DefaultTableModel(baseController.getDatabase().realInfo(), baseController.getDatabase().getMetaData()));
 		
 		displayPane = new JScrollPane(tableData);
+		
+		for(int spot = 0; spot < tableData.getColumnCount(); spot++)
+		{
+			tableData.getColumnModel().getColumn(spot).setCellRenderer(cellRenderer);
+		}
 	}
 	
 	/**
@@ -97,7 +105,6 @@ public class DeleteGuiPanel extends JPanel
 		password.setFont(new Font("Serif", Font.BOLD, 30));
 	}
 	
-	
 	/**
 	 * Creates the layout of the window
 	 */
@@ -117,46 +124,44 @@ public class DeleteGuiPanel extends JPanel
 		baseLayout.putConstraint(SpringLayout.WEST, textPane, 25, SpringLayout.WEST, this);
 	}
 	
-	
 	/**
-	 * Defines how the buttons are suppose to operate
-	 * USELESS FOR NOW!
+	 * Defines how the buttons are suppose to operate USELESS FOR NOW!
 	 */
 	private void heyListen()
 	{
-//		dadaButton.addActionListener(new ActionListener()
-//		{
-//			public void actionPerformed(ActionEvent click)
-//			{
-//				String databaseAnswer = baseController.getDatabase().displayTables();
-//				displayArea.setText(databaseAnswer);
-//			}
-//		});
-//		
-//		tableButton.addActionListener(new ActionListener()
-//		{
-//			public void actionPerformed(ActionEvent click)
-//			{
-//				String databaseAnswer = baseController.getDatabase().describeTable();
-//				displayArea.setText(databaseAnswer);
-//			}
-//		});
-//		
-//		insertButton.addActionListener(new ActionListener()
-//		{
-//			public void actionPerformed(ActionEvent click)
-//			{
-//				int insert = baseController.getDatabase().insertData();
-//				displayArea.setText(displayArea.getText() + "\nRows Affected: " + insert);
-//			}
-//		});
-//		
-//		clearButton.addActionListener(new ActionListener()
-//		{
-//			public void actionPerformed(ActionEvent click)
-//			{
-//				displayArea.setText("");
-//			}
-//		});
+		// dadaButton.addActionListener(new ActionListener()
+		// {
+		// public void actionPerformed(ActionEvent click)
+		// {
+		// String databaseAnswer = baseController.getDatabase().displayTables();
+		// displayArea.setText(databaseAnswer);
+		// }
+		// });
+		//
+		// tableButton.addActionListener(new ActionListener()
+		// {
+		// public void actionPerformed(ActionEvent click)
+		// {
+		// String databaseAnswer = baseController.getDatabase().describeTable();
+		// displayArea.setText(databaseAnswer);
+		// }
+		// });
+		//
+		// insertButton.addActionListener(new ActionListener()
+		// {
+		// public void actionPerformed(ActionEvent click)
+		// {
+		// int insert = baseController.getDatabase().insertData();
+		// displayArea.setText(displayArea.getText() + "\nRows Affected: " + insert);
+		// }
+		// });
+		//
+		// clearButton.addActionListener(new ActionListener()
+		// {
+		// public void actionPerformed(ActionEvent click)
+		// {
+		// displayArea.setText("");
+		// }
+		// });
 	}
 }
