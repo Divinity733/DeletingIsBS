@@ -133,6 +133,8 @@ public class DataBaseControl
 	{
 		String results = "";
 		String query = "SHOW DATABASES";
+		long startTime, endTime;
+		startTime = System.currentTimeMillis();
 		
 		try
 		{
@@ -144,6 +146,7 @@ public class DataBaseControl
 			}
 			answer.close();
 			firstStatement.close();
+			endTime = System.currentTimeMillis();
 		}
 		catch (SQLException currentSQLError)
 		{
