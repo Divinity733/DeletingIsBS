@@ -21,10 +21,10 @@ public class DataBaseControl
 	 */
 	public DataBaseControl(DeleteDBcontrol baseController)
 	{
-		String pathToDBServer = "localhost";
-		String databaseName = "games";
-		String userName = "root";
-		String password = "";
+		String pathToDBServer = "10.228.5.160";
+		String databaseName = "book_reading";
+		String userName = "b.litster";
+		String password = "lits129";
 		
 		this.baseController = baseController;
 		checkDriver();
@@ -377,7 +377,7 @@ public class DataBaseControl
 	}
 	
 	/**
-	 * Lists all available databases
+	 * Lists all available databases/tables
 	 * 
 	 * @param tableInfo
 	 *            ()
