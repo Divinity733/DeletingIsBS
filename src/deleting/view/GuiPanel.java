@@ -39,7 +39,7 @@ public class GuiPanel extends JPanel
 			
 			appLayout.putConstraint(SpringLayout.NORTH, test, startOffset, SpringLayout.NORTH, this);
 			appLayout.putConstraint(SpringLayout.NORTH, textField, startOffset, SpringLayout.NORTH, this);
-			appLayout.putConstraint(SpringLayout.EAST, textField, startOffset, SpringLayout.NORTH, this);
+			appLayout.putConstraint(SpringLayout.EAST, textField, 60, SpringLayout.EAST, test);
 			
 			startOffset += 50;
 		}
