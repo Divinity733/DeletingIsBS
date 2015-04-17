@@ -452,6 +452,48 @@ public class DataBaseControl
 	}
 	
 	/**
+	 * Lists all available databases
+	 * 
+	 * @param getDatabaseColumnNames
+	 *            (String tableName)
+	 * @return columnInfo
+	 */
+	public String[] getDatabaseColumnNames(String tableName)
+	{
+		String[] columnInfo;
+		String query = "SHOW * FROM `" + tableName + "`";
+		long startTime, endTime;
+		startTime = System.currentTimeMillis();
+		
+		try
+		{
+			Statement firstStatement = dadaConnect.createStatement();
+			ResultSet answer = firstStatement.executeQuery(query);
+			ResultSetMetaData myMeta = answer.getMetaData();
+			
+			columnInfo = new String[myMeta.getColumnCount()];
+			for (int spot = 0; spot < myMeta.getColumnCount(); spot++)
+			{
+				columnInfo[spot] = myMeta.getColumnName(spot + 1);
+			}
+			
+			answer.close();
+			firstStatement.close();
+			endTime = System.currentTimeMillis();
+		}
+		catch (SQLException currentSQLError)
+		{
+			endTime = System.currentTimeMillis();
+			columnInfo = new String[] { "no existance" };
+			displayErrors(currentSQLError);
+		}
+		
+		long queryTime = endTime - startTime;
+		baseController.getTimingInfoList().add(new QueryInfo(query, queryTime));
+		return columnInfo;
+	}
+	
+	/**
 	 * Gives entries in said table
 	 * 
 	 * @param describeTable
