@@ -550,4 +550,29 @@ public class DataBaseControl
 		
 		return rowsAffected;
 	}
+	
+	public void submitQuery(String currentQuery)
+	{
+		this.currentQuery = currentQuery;
+		long startTime, endTime;
+		startTime = System.currentTimeMillis();
+		endTime = 0;
+		if(!checkDataViolation())
+		{
+			try
+			{
+				Statement submitStatement = dadaConnect.createStatement();
+				submitStatement.executeUpdate(currentQuery);
+				submitStatement.close();
+				endTime = System.currentTimeMillis();
+			}
+			catch (SQLException currentSQLError)
+			{
+				endTime = System.currentTimeMillis();
+				displayErrors(currentSQLError);
+			}
+		}
+		long queryTime = endTime - startTime;
+		baseController.getTimingInfoList().add(new QueryInfo(currentQuery, queryTime));
+	}
 }
