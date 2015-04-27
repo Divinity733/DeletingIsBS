@@ -136,6 +136,7 @@ public class DataBaseControl
 		String query = "SHOW DATABASES";
 		long startTime, endTime;
 		startTime = System.currentTimeMillis();
+		endTime = 0;
 		
 		try
 		{
@@ -169,6 +170,9 @@ public class DataBaseControl
 	{
 		String[][] results;
 		String query = "SELECT * FROM `game_categories`";
+		long startTime, endTime;
+		startTime = System.currentTimeMillis();
+		endTime = 0;
 		
 		try
 		{
@@ -191,13 +195,15 @@ public class DataBaseControl
 			
 			answer.close();
 			firstStatement.close();
+			endTime = System.currentTimeMillis();
 		}
 		catch (SQLException currentSQLError)
 		{
+			endTime = System.currentTimeMillis();
 			results = new String[][] { { "problem occurred :(" } };
 			displayErrors(currentSQLError);
 		}
-		
+		baseController.getTimingInfoList().add(new QueryInfo(query, endTime - startTime));
 		return results;
 	}
 	
@@ -339,6 +345,9 @@ public class DataBaseControl
 	{
 		this.currentQuery = query;
 		String[][] results;
+		long startTime, endTime;
+		startTime = System.currentTimeMillis();
+		endTime = 0;
 		
 		try
 		{
@@ -366,13 +375,15 @@ public class DataBaseControl
 			
 			answer.close();
 			firstStatement.close();
+			endTime = System.currentTimeMillis();
 		}
 		catch (SQLException currentSQLError)
 		{
+			endTime = System.currentTimeMillis();
 			results = new String[][] { { "problem occurred :(" } };
 			displayErrors(currentSQLError);
 		}
-		
+		baseController.getTimingInfoList().add(new QueryInfo(query, endTime - startTime));
 		return results;
 	}
 	
@@ -387,6 +398,9 @@ public class DataBaseControl
 	{
 		String[][] results;
 		String query = "SHOW DATABASES";
+		long startTime, endTime;
+		startTime = System.currentTimeMillis();
+		endTime = 0;
 		
 		try
 		{
@@ -405,13 +419,15 @@ public class DataBaseControl
 			
 			answer.close();
 			firstStatement.close();
+			endTime = System.currentTimeMillis();
 		}
 		catch (SQLException currentSQLError)
 		{
+			endTime = System.currentTimeMillis();
 			results = new String[][] { { "problem occurred :(" } };
 			displayErrors(currentSQLError);
 		}
-		
+		baseController.getTimingInfoList().add(new QueryInfo(query, endTime - startTime));
 		return results;
 	}
 	
@@ -426,6 +442,9 @@ public class DataBaseControl
 	{
 		String[] columnInfo;
 		String query = "SHOW DATABASES";
+		long startTime, endTime;
+		startTime = System.currentTimeMillis();
+		endTime = 0;
 		
 		try
 		{
@@ -441,13 +460,15 @@ public class DataBaseControl
 			
 			answer.close();
 			firstStatement.close();
+			endTime = System.currentTimeMillis();
 		}
 		catch (SQLException currentSQLError)
 		{
+			endTime = System.currentTimeMillis();
 			columnInfo = new String[] { "no existance" };
 			displayErrors(currentSQLError);
 		}
-		
+		baseController.getTimingInfoList().add(new QueryInfo(query, endTime - startTime));
 		return columnInfo;
 	}
 	
@@ -464,6 +485,7 @@ public class DataBaseControl
 		String query = "SHOW * FROM `" + tableName + "`";
 		long startTime, endTime;
 		startTime = System.currentTimeMillis();
+		endTime = 0;
 		
 		try
 		{
@@ -504,6 +526,9 @@ public class DataBaseControl
 	{
 		String results = "";
 		String query = "DESCRIBE `game_categories`";
+		long startTime, endTime;
+		startTime = System.currentTimeMillis();
+		endTime = 0;
 		
 		try
 		{
@@ -515,12 +540,14 @@ public class DataBaseControl
 			}
 			answer.close();
 			firstStatement.close();
+			endTime = System.currentTimeMillis();
 		}
 		catch (SQLException currentSQLError)
 		{
+			endTime = System.currentTimeMillis();
 			displayErrors(currentSQLError);
 		}
-		
+		baseController.getTimingInfoList().add(new QueryInfo(query, endTime - startTime));
 		return results;
 	}
 	
@@ -551,6 +578,12 @@ public class DataBaseControl
 		return rowsAffected;
 	}
 	
+	/**
+	 * Updates query info.
+	 * 
+	 * @param submitQuery
+	 *            (String currentQuery)
+	 */
 	public void submitQuery(String currentQuery)
 	{
 		this.currentQuery = currentQuery;
