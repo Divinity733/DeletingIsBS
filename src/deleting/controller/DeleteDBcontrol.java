@@ -63,58 +63,60 @@ public class DeleteDBcontrol
 		return timingInfoList;
 	}
 	
-	private void loadTimeInfo()
+	public void loadTimeInfo()
 	{
-		File saveFile = new File("C:/Users/blit1703/Documents/sdfs.txt");
 		try
 		{
-			timingInfoList.clear();
-			Scanner readFileScanner;
-			if (saveFile.exists())
+			File loadFile = new File("sdfs.save");
+			if (loadFile.exists())
 			{
-				readFileScanner = new Scanner(saveFile);
+				timingInfoList.clear();
+				Scanner readFileScanner = new Scanner(loadFile);
 				while (readFileScanner.hasNext())
 				{
 					String tempQuery = readFileScanner.nextLine();
-					readFileScanner.next();
-					long tempTime = readFileScanner.nextLong();
+					long tempTime = Long.parseLong(readFileScanner.nextLine());
 					timingInfoList.add(new QueryInfo(tempQuery, tempTime));
 				}
 				readFileScanner.close();
+				JOptionPane.showMessageDialog(getAppFrame(), timingInfoList.size() + " QueryInfo objects has been loaded.");
+			}
+			else
+			{
+				JOptionPane.showMessageDialog(getAppFrame(), "There is no file there :(");
 			}
 		}
 		catch (IOException current)
 		{
-			this.getDatabase().displayErrors(current);
+			database.displayErrors(current);
 		}
 		
 	}
 	
 	public void saveQueryInfo()
-	{
-		String fileName = "C:/Users/blit1703/Documents/sdfs.txt";
-		ArrayList<QueryInfo> output = getTimingInfoList();
-		PrintWriter outputWriter;
-		
+	{		
 		try
 		{
-			outputWriter = new PrintWriter(new BufferedWriter(new FileWriter(fileName)));
-			for (QueryInfo current : output)
+			File saveFile = new File("sdf.save");
+			PrintWriter outputWriter = new PrintWriter(saveFile);
+			if(saveFile.exists())
 			{
-				outputWriter.write(current.getQuery());
-				outputWriter.write(current.getQueryTime() + "\n");
+				for (QueryInfo current : timingInfoList)
+				{
+					outputWriter.println(current.getQuery());
+					outputWriter.println(current.getQueryTime());
+				}
+				outputWriter.close();
+				JOptionPane.showMessageDialog(getAppFrame(), timingInfoList.size() + " QueryInfo objects has been saved.");
 			}
-			outputWriter.close();
+			else
+			{
+				JOptionPane.showMessageDialog(getAppFrame(), "There is no file there :(");
+			}
 		}
 		catch (FileNotFoundException noExistingFile)
 		{
-			JOptionPane.showMessageDialog(appFrame, "There is no file there :(");
-			JOptionPane.showMessageDialog(appFrame, noExistingFile.getMessage());
-		}
-		catch (IOException inputOutputError)
-		{
-			JOptionPane.showMessageDialog(appFrame, "There is no file there :(");
-			JOptionPane.showMessageDialog(appFrame, inputOutputError.getMessage());
+			database.displayErrors(noExistingFile);
 		}
 	}
 }
