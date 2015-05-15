@@ -1,4 +1,24 @@
 SHOW DATABASES
-21
+3
 SHOW DATABASES
-0
+2
+DESCRIBE `game_categories`
+52
+DESCRIBE `game_categories`
+29
+DESCRIBE `game_categories`
+8
+DESCRIBE `game_categories`
+5
+DESCRIBE `game_categories`
+4
+DESCRIBE `game_categories`
+7
+DESCRIBE `game_categories`
+5
+DESCRIBE `game_categories`
+4
+DESCRIBE `game_categories`
+8
+DESCRIBE `game_categories`
+22

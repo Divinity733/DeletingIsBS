@@ -18,9 +18,7 @@ import deleting.controller.DeleteDBcontrol;
 
 public class DeleteGuiPanel extends JPanel
 {
-	
 	private DeleteDBcontrol baseController;
-	private SpringLayout appLayout;
 	private JTextArea displayArea;
 	private JTextArea textArea;
 	private JButton dadaButton;
@@ -129,39 +127,43 @@ public class DeleteGuiPanel extends JPanel
 	 */
 	private void heyListen()
 	{
-		// dadaButton.addActionListener(new ActionListener()
-		// {
-		// public void actionPerformed(ActionEvent click)
-		// {
-		// String databaseAnswer = baseController.getDatabase().displayTables();
-		// displayArea.setText(databaseAnswer);
-		// }
-		// });
-		//
-		// tableButton.addActionListener(new ActionListener()
-		// {
-		// public void actionPerformed(ActionEvent click)
-		// {
-		// String databaseAnswer = baseController.getDatabase().describeTable();
-		// displayArea.setText(databaseAnswer);
-		// }
-		// });
-		//
-		// insertButton.addActionListener(new ActionListener()
-		// {
-		// public void actionPerformed(ActionEvent click)
-		// {
-		// int insert = baseController.getDatabase().insertData();
-		// displayArea.setText(displayArea.getText() + "\nRows Affected: " + insert);
-		// }
-		// });
-		//
-		// clearButton.addActionListener(new ActionListener()
-		// {
-		// public void actionPerformed(ActionEvent click)
-		// {
-		// displayArea.setText("");
-		// }
-		// });
+		dadaButton.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(
+					ActionEvent click)
+			{
+				String databaseAnswer = baseController.getDatabase().displayTables();
+				textArea.setText(databaseAnswer);
+			}
+		});
+		
+		tableButton.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(
+					ActionEvent click)
+			{
+				String databaseAnswer = baseController.getDatabase().describeTable();
+				textArea.setText(databaseAnswer);
+			}
+		});
+		
+		insertButton.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(
+					ActionEvent click)
+			{
+				int insert = baseController.getDatabase().insertData();
+				textArea.setText(displayArea.getText() + "\nRows Affected: " + insert);
+			}
+		});
+		
+		clearButton.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(
+					ActionEvent click)
+			{
+				textArea.setText("");
+			}
+		});
 	}
 }
