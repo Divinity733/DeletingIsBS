@@ -17,6 +17,11 @@ public class GuiPanel extends JPanel
 	private ArrayList<JTextField> inputFieldList;
 	private String table;
 	
+	/**
+	 * Defines objects
+	 * 
+	 * @param baseController
+	 */
 	public GuiPanel(DeleteDBcontrol baseController, String table)
 	{
 		this.baseController = baseController;
@@ -63,6 +68,9 @@ public class GuiPanel extends JPanel
 		}
 	}
 	
+	/**
+	 * Grabs layout settings from objects.
+	 */
 	private void setupLayout()
 	{
 		appLayout.putConstraint(SpringLayout.SOUTH, submitButton, -50, SpringLayout.SOUTH, this);

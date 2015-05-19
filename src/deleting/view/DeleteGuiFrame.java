@@ -14,6 +14,11 @@ public class DeleteGuiFrame extends JFrame
 	private DeleteGuiPanel basePanel;
 	private DeleteDBcontrol baseController;
 	
+	/**
+	 * Defines objects
+	 * 
+	 * @param baseController
+	 */
 	public DeleteGuiFrame(DeleteDBcontrol baseController)
 	{
 		this.baseController = baseController;
@@ -23,6 +28,9 @@ public class DeleteGuiFrame extends JFrame
 		setupListeners();
 	}
 	
+	/**
+	 * Creates the frame for the window.
+	 */
 	private void setupFrame()
 	{
 		this.setContentPane(basePanel);
@@ -30,6 +38,9 @@ public class DeleteGuiFrame extends JFrame
 		this.setVisible(true);
 	}
 	
+	/**
+	 * Adds events to the window.
+	 */
 	private void setupListeners()
 	{
 		this.addWindowListener(new WindowListener()
