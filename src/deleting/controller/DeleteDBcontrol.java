@@ -58,11 +58,20 @@ public class DeleteDBcontrol
 		return database;
 	}
 	
+	/**
+	 * Looks into the QueryInfo List
+	 * 
+	 * @return timingInfoList
+	 */
 	public ArrayList<QueryInfo> getTimingInfoList()
 	{
 		return timingInfoList;
 	}
 	
+	/**
+	 * Loads the timingInfoList
+	 * 
+	 */
 	public void loadTimeInfo()
 	{
 		try
@@ -93,6 +102,10 @@ public class DeleteDBcontrol
 		
 	}
 	
+	/**
+	 * Saves the timingInfoList
+	 * 
+	 */
 	public void saveQueryInfo()
 	{		
 		try
