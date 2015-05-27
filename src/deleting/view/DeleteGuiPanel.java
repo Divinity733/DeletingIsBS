@@ -134,6 +134,9 @@ public class DeleteGuiPanel extends JPanel
 			{
 				String databaseAnswer = baseController.getDatabase().displayTables();
 				textArea.setText(databaseAnswer);
+				displayPane.revalidate();
+				displayArea.revalidate();
+				setupTable();
 			}
 		});
 		
@@ -144,6 +147,9 @@ public class DeleteGuiPanel extends JPanel
 			{
 				String databaseAnswer = baseController.getDatabase().describeTable();
 				textArea.setText(databaseAnswer);
+				displayPane.revalidate();
+				displayArea.revalidate();
+				setupTable();
 			}
 		});
 		
@@ -154,6 +160,9 @@ public class DeleteGuiPanel extends JPanel
 			{
 				int insert = baseController.getDatabase().insertData();
 				textArea.setText(displayArea.getText() + "\nRows Affected: " + insert);
+				displayPane.revalidate();
+				displayArea.revalidate();
+				setupTable();
 			}
 		});
 		
@@ -163,6 +172,9 @@ public class DeleteGuiPanel extends JPanel
 					ActionEvent click)
 			{
 				textArea.setText("");
+				displayPane.revalidate();
+				displayArea.revalidate();
+				setupTable();
 			}
 		});
 	}
